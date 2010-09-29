@@ -30,12 +30,15 @@ type Set struct {
 }
 
 // New returns an initialized Set.
+// O(1)
 func New() *Set { return &Set{list.New()} }
 
 // Init initializes or clears a Set.
+// O(1)
 func (s *Set) Init() *Set { s.l.Init(); return s }
 
 // Len returns the number of elements in the Set.
+// O(1)
 func (s *Set) Len() int { return s.l.Len() }
 
 func (s *Set) wrapIter(c chan<- ElementValue) {
@@ -53,6 +56,7 @@ func (s *Set) Iter() <-chan ElementValue {
 }
 
 // Contains returns a boolean indicating if a value is part of the Set.
+// O(n)
 func (s *Set) Contains(value ElementValue) bool {
 	for e := s.l.Front(); e != nil; e = e.Next() {
 		if value.Equal(e.Value) {
@@ -63,6 +67,7 @@ func (s *Set) Contains(value ElementValue) bool {
 }
 
 // Insert adds a value in the Set.
+// O(n)
 func (s *Set) Insert(value ElementValue) *list.Element {
 	if s.Contains(value) {
 		return nil
@@ -71,6 +76,7 @@ func (s *Set) Insert(value ElementValue) *list.Element {
 }
 
 // Remove removes a value from the Set.
+// O(n)
 func (s *Set) Remove(value ElementValue) bool {
 	for e := s.l.Front(); e != nil; e = e.Next() {
 		if value.Equal(e.Value) {
@@ -83,6 +89,7 @@ func (s *Set) Remove(value ElementValue) bool {
 }
 
 // Subset returns true if all values in the second set are also in the first.
+// O(mn)
 func (s *Set) Subset(s2 *Set) bool {
 	if s2.Len() > s.Len() {
 		return false
@@ -98,11 +105,13 @@ func (s *Set) Subset(s2 *Set) bool {
 }
 
 // Superset returns true if all values in the first set are also in the second.
+// O(mn)
 func (s *Set) Superset(s2 *Set) bool {
 	return s2.Subset(s)
 }
 
 // Equal returns if the all values in the first set are also in the second, and the second contains no additional values.
+// O(mn)
 func (s *Set) Equal(s2 *Set) bool {
 	if s.Len() != s2.Len() {
 		return false
@@ -112,6 +121,7 @@ func (s *Set) Equal(s2 *Set) bool {
 }
 
 // Union returns a new set which contains the distinct values from both sets.
+// O(mn)
 func (s *Set) Union(s2 *Set) *Set {
 	u := New()
 
@@ -127,6 +137,7 @@ func (s *Set) Union(s2 *Set) *Set {
 }
 
 // Intersection returns a new set which contains values which only exist in both sets.
+// O(mn)
 func (s *Set) Intersection(s2 *Set) *Set {
 	in := New()
 
@@ -139,6 +150,7 @@ func (s *Set) Intersection(s2 *Set) *Set {
 }
 
 // Difference returns a new set which contains values from the first set which do not exist in the second.
+// O(mn)
 func (s *Set) Difference(s2 *Set) *Set {
 	df := New()
 
