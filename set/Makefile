@@ -4,7 +4,7 @@
 
 include $(GOROOT)/src/Make.inc
 
-TARG=container/set
+TARG=github.com/eclark/container/set
 GOFILES=\
 	set.go\
 
