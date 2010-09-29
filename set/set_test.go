@@ -83,5 +83,31 @@ func TestCompare(t *testing.T) {
 	if d.Len() != 2 {
 		t.Error("y diff x Difference length incorrect")
 	}
+}
 
+func TestSetofSet(t *testing.T) {
+	a := New()
+	a.Insert(EqInt(1))
+	a.Insert(EqInt(2))
+
+	b := New()
+	b.Insert(EqInt(1))
+	b.Insert(EqInt(2))
+
+	c := New()
+	c.Insert(EqInt(2))
+	c.Insert(EqInt(3))
+
+	d := New()
+	d.Insert(a)
+	if d.Insert(b) != nil {
+		t.Error("Duplicate set inserted")
+	}
+	d.Insert(c)
+
+	for v := range d.Iter() {
+		for w := range v.(*Set).Iter() {
+			t.Log(v, w)
+		}
+	}
 }

@@ -112,12 +112,17 @@ func (s *Set) Superset(s2 *Set) bool {
 
 // Equal returns if the all values in the first set are also in the second, and the second contains no additional values.
 // O(mn)
-func (s *Set) Equal(s2 *Set) bool {
-	if s.Len() != s2.Len() {
+func (s *Set) Equal(s2 interface{}) bool {
+	set2, ok := s2.(*Set);
+	if !ok {
 		return false
 	}
 
-	return s.Subset(s2);
+	if s.Len() != set2.Len() {
+		return false
+	}
+
+	return s.Subset(set2);
 }
 
 // Union returns a new set which contains the distinct values from both sets.
