@@ -74,12 +74,12 @@ func TestCompare(t *testing.T) {
 		t.Error("Intersection length incorrect")
 	}
 
-	d := x.Difference(y)
+	d := x.RelativeComplement(y)
 	if d.Len() != 1 {
 		t.Error("x diff y Difference length incorrect")
 	}
 
-	d = y.Difference(x)
+	d = x.Complement(y)
 	if d.Len() != 2 {
 		t.Error("y diff x Difference length incorrect")
 	}

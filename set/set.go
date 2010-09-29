@@ -149,9 +149,9 @@ func (s *Set) Intersection(s2 *Set) *Set {
 	return in
 }
 
-// Difference returns a new set which contains values from the first set which do not exist in the second.
+// RelativeComplement returns a new set which contains values from the first set which do not exist in the second.
 // O(mn)
-func (s *Set) Difference(s2 *Set) *Set {
+func (s *Set) RelativeComplement(s2 *Set) *Set {
 	df := New()
 
 	for e := s.l.Front(); e != nil; e = e.Next() {
@@ -160,4 +160,16 @@ func (s *Set) Difference(s2 *Set) *Set {
 		}
 	}
 	return df
+}
+
+// Complement returns a new set which contains values from the second set which which do not exist in the first.
+func (s *Set) Complement(s2 *Set) *Set {
+	return s2.RelativeComplement(s)
+}
+
+// SymmetricDifference returns a new set which contains values from each set that do not exist in both sets.
+// O(mn)
+func (s *Set) SymmetricDifference(s2 *Set) *Set {
+  //TODO(ec) This can be rewritten to reduce constant time. 
+	return s.Union(s2).RelativeComplement(s.Intersection(s2))
 }
