@@ -7,7 +7,19 @@ package set
 
 import "container/list"
 
-// A type that satisfies set.ElementValue can be inserted into a Set.  The Equal method should test both the type and equality.
+/*
+	A type that satisfies set.ElementValue can be inserted into a Set.  The Equal method should test both the type and equality.
+
+	Here is a simple example of a type that conforms to ElementValue:
+
+		type EqInt int
+		func (i EqInt) Equal(j interface{}) bool {
+			if k, ok := j.(EqInt); ok {
+				return i == k
+			}
+			return false
+		}
+*/
 type ElementValue interface {
 	Equal(v interface{}) bool
 }
