@@ -21,7 +21,7 @@ type Set struct {
 func New() *Set { return &Set{list.New()} }
 
 // Init initializes or clears a Set.
-func (s *Set) Init() *Set { return s.l.Init() }
+func (s *Set) Init() *Set { s.l.Init(); return s }
 
 // Len returns the number of elements in the Set.
 func (s *Set) Len() int { return s.l.Len() }
