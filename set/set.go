@@ -41,19 +41,13 @@ func (s *Set) Init() *Set { s.l.Init(); return s }
 // O(1)
 func (s *Set) Len() int { return s.l.Len() }
 
-func (s *Set) wrapIter(c chan<- ElementValue) {
-	for v := range s.l.Iter() {
-		c <- v.(ElementValue)
-	}
-	close(c)
-}
+// Front returns the first element in the Set.
+// O(1)
+func (s *Set) Front() *list.Element { return s.l.Front() }
 
-// Iter returns a channel of values in the Set.
-func (s *Set) Iter() <-chan ElementValue {
-	c := make(chan ElementValue)
-	go s.wrapIter(c)
-	return c
-}
+// Back returns the last element in the Set.
+// O(1)
+func (s *Set) Back() *list.Element { return s.l.Back() }
 
 // Contains returns a boolean indicating if a value is part of the Set.
 // O(n)

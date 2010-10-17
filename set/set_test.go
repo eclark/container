@@ -105,9 +105,11 @@ func TestSetofSet(t *testing.T) {
 	}
 	d.Insert(c)
 
-	for v := range d.Iter() {
-		for w := range v.(*Set).Iter() {
-			t.Log(v, w)
+	for e := d.Front(); e != nil; e = e.Next() {
+//	for v := range d.Iter() {
+		for f := e.Value.(*Set).Front(); f != nil; f = f.Next() {
+//		for w := range v.(*Set).Iter() {
+			t.Log(e.Value.(*Set), f.Value)
 		}
 	}
 }
